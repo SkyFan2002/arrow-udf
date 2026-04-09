@@ -22,9 +22,11 @@ use pyo3::{
     ffi::c_str,
     prelude::PyDictMethods,
     types::{PyAnyMethods, PyDict},
-    IntoPyObject, PyObject, PyResult, Python,
+    IntoPyObject, Py, PyAny, PyResult, Python,
 };
 use std::{borrow::Cow, ffi::CString, sync::Arc};
+
+type PyObject = Py<PyAny>;
 
 macro_rules! get_pyobject {
     ($array_type: ty, $py:expr, $array:expr, $i:expr) => {{
