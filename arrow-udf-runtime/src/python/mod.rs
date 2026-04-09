@@ -101,9 +101,17 @@ struct Aggregate {
 
 /// A builder for `Runtime`.
 #[derive(Default, Debug)]
-pub struct Builder {}
+pub struct Builder {
+    safe_codes: Option<String>,
+}
 
 impl Builder {
+    /// Run initialization code before user-defined functions are registered.
+    pub fn safe_codes(mut self, code: String) -> Self {
+        self.safe_codes = Some(code);
+        self
+    }
+
     /// Build the `Runtime`.
     pub fn build(self) -> Result<Runtime> {
         let interpreter = Interpreter::new()?;
@@ -119,6 +127,9 @@ class Struct:
     pass
 "#,
         )?;
+        if let Some(code) = self.safe_codes {
+            interpreter.run(&code)?;
+        }
         Ok(Runtime {
             interpreter,
             functions: HashMap::new(),
