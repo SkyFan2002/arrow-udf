@@ -23,11 +23,13 @@ use arrow_array::builder::{ArrayBuilder, Int32Builder, StringBuilder};
 use arrow_array::{Array, ArrayRef, BooleanArray, RecordBatch};
 use arrow_schema::{DataType, Field, FieldRef, Schema, SchemaRef};
 use pyo3::types::{PyAnyMethods, PyIterator, PyModule, PyTuple};
-use pyo3::{Py, PyObject};
+use pyo3::{Py, PyAny};
 use std::collections::HashMap;
 use std::ffi::CString;
 use std::fmt::Debug;
 use std::sync::Arc;
+
+type PyObject = Py<PyAny>;
 
 // #[cfg(Py_3_12)]
 mod interpreter;
