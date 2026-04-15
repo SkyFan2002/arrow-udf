@@ -405,7 +405,7 @@ impl Converter {
                 for val in values {
                     if !val.is_none(py) {
                         let py_any = val.bind(py);
-                        let dict = py_any.downcast::<PyDict>()?;
+                        let dict = py_any.cast::<PyDict>()?;
                         flatten_keys.reserve(dict.len());
                         flatten_values.reserve(dict.len());
                         for key in dict.keys() {
